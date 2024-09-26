@@ -8,13 +8,15 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/acerca/">Acerca</a></li>
-            <li><a href="/juego/">Juego</a></li>
-        </ul>
-    </nav>
+	<nav>
+		<ul>
+			<li><a href="/">Inicio</a></li>
+			<li><a href="/acerca/">Acerca</a></li>
+			<li><a href="/juego/">Juego</a></li>
+			<li><a href="/register/">Registrarse</a></li>
+			<li><a href="/login/">Iniciar Sesión</a></li>
+		</ul>
+	</nav>
     <div id="contenido">
         <h1>{{ titulo }}</h1>
 		<p>Este es un juego de Pong desarrollado en Django.</p>
@@ -22,5 +24,6 @@
     </div>
 
     <script src="{% static 'app.js' %}"></script>
+	
 </body>
 </html>

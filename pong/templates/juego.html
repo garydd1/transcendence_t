@@ -8,18 +8,21 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/acerca/">Acerca</a></li>
-            <li><a href="/juego/">Juego</a></li>
-        </ul>
-    </nav>
+	<nav>
+		<ul>
+			<li><a href="/">Inicio</a></li>
+			<li><a href="/acerca/">Acerca</a></li>
+			<li><a href="/juego/">Juego</a></li>
+			<li><a href="/register/">Registrarse</a></li>
+			<li><a href="/login/">Iniciar Sesión</a></li>
+		</ul>
+	</nav>
     <div id="contenido">
         <h1>{{ titulo }}</h1>
         <canvas id="pong" width="600" height="400" style="border:1px solid #000;"></canvas>
     </div>
 
     <script src="{% static 'app.js' %}"></script>
+	<script src="{% static 'game.js' %}"></script>
 </body>
 </html>
