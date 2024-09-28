@@ -14,21 +14,16 @@ function cargarContenido(event) {
             const nuevoContenido = doc.getElementById('contenido').innerHTML;
             document.getElementById('contenido').innerHTML = nuevoContenido;  // Cambiar solo el contenido
 
-            // Lógica adicional para cargar scripts dinámicamente
+            // Cargar game.js si estamos en la página del juego
             if (url === '/juego/') {
-                console.log('Cargando juego...');
+                console.log('cargando juego');
                 cargarScript('/static/game.js');
-            } else if (url === '/register/') {
-                console.log('Cargando formulario de registro...');
-                // Si necesitas cargar algún script adicional para el registro, puedes hacerlo aquí
-                cargarScript('/static/register.js');  // Esto es opcional si necesitas lógica específica
-            } else if (url === '/login/') {
-                console.log('Cargando formulario de login...');
-                // Si necesitas cargar algún script adicional para login
-                cargarScript('/static/login.js');  // Esto es opcional si tienes lógica específica para login
             }
-        })
-        .catch(error => console.error('Error al cargar el contenido:', error));
+			if (url === '/register/') {
+				console.log('cargando register');
+				cargarScript('/static/register.js');
+			}
+        });
 }
 
 // Función para cargar un script dinámicamente
