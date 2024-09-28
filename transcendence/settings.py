@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'pong',
+	'rest_framework',
+	'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -75,6 +77,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Duración del token
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),     # Duración del token de refresco
+    'ROTATE_REFRESH_TOKENS': True,                  # Renueva el refresh token al utilizarlo
+    'BLACKLIST_AFTER_ROTATION': True,               # Evitar que se reutilicen tokens de refresco rotados
+    'AUTH_HEADER_TYPES': ('Bearer',),               # El tipo de encabezado esperado
 }
 
 # Database

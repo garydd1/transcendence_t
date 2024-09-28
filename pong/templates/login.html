@@ -19,7 +19,8 @@
 	</nav>
     <div id="contenido">
 		<h2>Iniciar Sesión</h2>
-		<form id="login-form">
+		<form id="login-form" method = "POST">
+			{% csrf_token %}
 			<label for="username">Usuario</label>
 			<input type="text" id="login-username" name="username" required>
 
@@ -32,5 +33,6 @@
 	</div>
 
     <script src="{% static 'app.js' %}"></script>
+	<script src="{% static 'login.js' %}"></script>
 </body>
 </html>

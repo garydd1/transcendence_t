@@ -23,6 +23,10 @@ function cargarContenido(event) {
 				console.log('cargando register');
 				cargarScript('/static/register.js');
 			}
+			if (url === '/login/') {
+				console.log('cargando login');
+				cargarScript('/static/login.js');
+			}
         });
 }
 

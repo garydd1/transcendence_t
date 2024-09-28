@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import RegisterSerializer
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 
@@ -45,12 +47,23 @@ def registro_view(request):
 	}
 	return render(request, 'register.html', contexto_)  # Renderiza la plantilla registro.html
 
-def login_view(request):
-	contexto_ = {
-		'titulo': 'Página de Login',
-		'descripcion': 'Bienvenido a la página de inicio de nuestro sitio web.'
-	}
-	return render(request, 'login.html', contexto_)  # Renderiza la plantilla login.html
+
+@api_view(['POST'])
+def login_api_view(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    # Autenticar al usuario
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        # Si la autenticación es exitosa, generar los tokens JWT
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        })
+    else:
+        return Response({'error': 'Credenciales inválidas'}, status=400)
 
 @api_view(['POST'])
 def register_view(request):
