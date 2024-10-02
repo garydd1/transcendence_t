@@ -2,9 +2,11 @@
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from .serializers import RegisterSerializer
 from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -26,6 +28,7 @@ def acerca_view(request):
     return render(request, 'acerca.html', contexto_)  # Renderiza la plantilla acerca.html
 
 # Vista para la página del Juego
+@login_required
 def juego_view(request):
     contexto_ = {
         'titulo': 'Página de Juego',

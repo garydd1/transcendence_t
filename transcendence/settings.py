@@ -53,6 +53,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'transcendence.urls'
+LOGIN_REDIRECT_URL = '/juego/'
+LOGIN_URL = '/login/'
 
 TEMPLATES = [
     {
