@@ -8,6 +8,7 @@ from .serializers import RegisterSerializer
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from rest_framework_simplejwt.tokens import RefreshToken
+from .jwt_auth import jwt42_required
 
 
 
@@ -28,7 +29,7 @@ def acerca_view(request):
     return render(request, 'acerca.html', contexto_)  # Renderiza la plantilla acerca.html
 
 # Vista para la página del Juego
-@login_required
+@jwt42_required
 def juego_view(request):
     contexto_ = {
         'titulo': 'Página de Juego',
