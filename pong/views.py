@@ -13,6 +13,20 @@ from .jwt_auth import jwt42_required
 
 
 # Vista para la página de Inicio
+def index_view(request):
+	contexto_ = {
+		'titulo': 'Página de Inicio',
+		'descripcion': 'Bienvenido a la página de inicio de nuestro sitio web.'
+	}
+	return render(request, 'index.html', contexto_)  # Renderiza la plantilla index.html
+
+def base_view(request):
+	contexto_ = {
+		'titulo': 'Página de Inicio',
+		'descripcion': 'Bienvenido a la página de inicio de nuestro sitio web.'
+	}
+	return render(request, 'base.html', contexto_)  # Renderiza la plantilla index.html
+
 def inicio_view(request):
     contexto_ = {
         'titulo': 'Página de Inicio',

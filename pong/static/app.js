@@ -20,6 +20,7 @@ function cargarContenido(event) {
     // Agregar el token JWT al encabezado si existe
     const token = getToken();
     if (token) {
+		console.log('Token enviado:', token); // Agrega este log para verificar el token
         headers['Authorization'] = `Bearer ${token}`;  // Añadir el token al encabezado
     }
 
