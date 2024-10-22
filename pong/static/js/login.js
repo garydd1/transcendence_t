@@ -41,8 +41,9 @@
                 responseMessage.textContent = 'Inicio de sesión exitoso. Redirigiendo...';
 
                 setTimeout(() => {
-                    window.location.href = '/juego/';
-                }, 1000);
+					history.pushState(null, '', '/juego/');  // Cambia la URL sin recargar la página
+					cargarContenido();  // Llama a la función que carga dinámicamente el contenido de la página
+				}, 1000);
             })
             .catch(error => {
                 console.error('Error al iniciar sesión:', error);

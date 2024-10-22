@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Torneo{% endblock %}
+{% block page_name %}tournament{% endblock %}
+
+{% block content %}
+    <h1>Crear un Torneo</h1>
+    <form id="crear-torneo-form">
+        <label for="nombre-torneo">Nombre del Torneo:</label>
+        <input type="text" id="nombre-torneo" required>
+        <button type="submit">Crear Torneo</button>
+    </form>
+
+    <div id="torneo-arbol">
+        <!-- Aquí se mostrará el árbol del torneo -->
+    </div>
+{% load static %}
+<script src="{% static 'js/tournament.js' %}"></script>
+
+{% endblock %}
