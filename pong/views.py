@@ -159,13 +159,28 @@ class PartidaViewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         partida = self.get_object()
-        ganador = request.data.get('ganador')  # Obtener el ganador desde el cuerpo de la solicitud
+        ganador = request.data.get('ganador')
 
-        # Actualizar el ganador y marcar la partida como completa
+        # Verificar si el ganador es válido
         partida.ganador = User.objects.get(id=ganador)
         partida.save()
 
-        # Avanzar el ganador a la siguiente ronda si es necesario
-        # Agregar aquí lógica para gestionar la siguiente fase del torneo
+        # Verificar si hay suficientes ganadores para avanzar a la siguiente ronda
+        torneo = partida.torneo
+        ronda_actual = partida.ronda
+
+        # Obtener todas las partidas completadas de la ronda actual
+        partidas_de_ronda_actual = Partida.objects.filter(torneo=torneo, ronda=ronda_actual, ganador__isnull=False)
         
-        return Response({'status': 'Ganador registrado'})
+        if partidas_de_ronda_actual.count() == (2 ** (3 - ronda_actual)):  # 8 -> 4 -> 2 -> 1 (final)
+            # Si todas las partidas de la ronda están completas, crear nuevas partidas para la siguiente ronda
+            ganadores = [p.ganador for p in partidas_de_ronda_actual]
+            for i in range(0, len(ganadores), 2):
+                Partida.objects.create(
+                    torneo=torneo,
+                    jugador1=ganadores[i],
+                    jugador2=ganadores[i+1],
+                    ronda=ronda_actual + 1
+                )
+        
+        return Response({'status': 'Ganador registrado y ronda avanzada'})

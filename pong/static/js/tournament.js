@@ -39,7 +39,7 @@ function mostrarTorneos(torneos) {
     }
 
     // Mostrar todos los torneos disponibles
-    torneos.forEach(torneo => {
+    torneos.forEach(torneo => { 
         const torneoDiv = document.createElement('div');
         torneoDiv.classList.add('torneo');
 
@@ -86,6 +86,7 @@ function crearTorneo(nombre) {
 
 
 // Función para mostrar el árbol del torneo
+// Función para mostrar el árbol del torneo
 function mostrarArbolTorneo(torneoId) {
     fetch(`/api/torneos/${torneoId}/`, {
         headers: {
@@ -95,18 +96,30 @@ function mostrarArbolTorneo(torneoId) {
     })
     .then(response => response.json())
     .then(data => {
-        const arbolDiv = document.getElementById('torneo-arbol');  // Correcto id aquí
+        const arbolDiv = document.getElementById('torneo-arbol');
         arbolDiv.innerHTML = '';  // Limpiar el contenido previo
 
-        // Generar visualización del árbol del torneo
         arbolDiv.innerHTML = `<h4>Árbol del Torneo para: ${data.torneo.nombre}</h4>`;
+        let rondas = {};  // Crear un objeto para agrupar partidas por rondas
+
         data.partidas.forEach(partida => {
-            arbolDiv.innerHTML += `
+            if (!rondas[partida.ronda]) {
+                rondas[partida.ronda] = [];  // Inicializar array para esta ronda
+            }
+            rondas[partida.ronda].push(`
                 <div>
-                    <p>${partida.jugador1.username} vs ${partida.jugador2.username}</p>
+                    <p>${partida.jugador1} vs ${partida.jugador2}</p>
                     <p>Ganador: ${partida.ganador ? partida.ganador.username : 'Pendiente'}</p>
                 </div>
-            `;
+            `);
+        });
+
+        // Mostrar las partidas por rondas
+        Object.keys(rondas).forEach(ronda => {
+            arbolDiv.innerHTML += `<h5>Ronda ${ronda}</h5>`;
+            rondas[ronda].forEach(partidaHtml => {
+                arbolDiv.innerHTML += partidaHtml;
+            });
         });
     })
     .catch(error => {

@@ -16,6 +16,7 @@ class Partida(models.Model):
     jugador2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='jugador2')
     ganador = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='ganador', null=True, blank=True)
     fecha_partida = models.DateTimeField(auto_now_add=True)
+    ronda = models.IntegerField(default=1)  # Nuevo campo para identificar la ronda
 
     def __str__(self):
         return f"{self.jugador1} vs {self.jugador2} en {self.torneo.nombre}"
